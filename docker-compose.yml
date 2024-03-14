@@ -1,0 +1,31 @@
+version: '2.1'
+services:
+  eureka1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+    environment:
+      - EUREKA_URL=http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+    restart: always
+
+  eureka2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8762:8761"
+    environment:
+      - EUREKA_URL=http://eureka2:8761/eureka/,http://eureka3:8761/eureka/
+    restart: always
+
+  eureka3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8763:8761"
+    environment:
+      - EUREKA_URL=http://eureka1:8761/eureka/,http://eureka2:8761/eureka/
+    restart: always
